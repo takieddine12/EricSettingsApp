@@ -132,12 +132,13 @@
                 android:layout_margin="20sp"/>
 
             <RadioGroup
+                android:id="@+id/radioGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20sp"
                 android:layout_marginEnd="20sp">
                 <RadioButton
-                    android:id="@+id/simpleRadioButton"
+                    android:id="@+id/radioBtn1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/english_united_states"
@@ -146,7 +147,7 @@
                     android:paddingStart="20sp"
                     tools:ignore="RtlSymmetry" />
                 <RadioButton
-                    android:id="@+id/simpleRadioButton1"
+                    android:id="@+id/radioBtn2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/korean"
