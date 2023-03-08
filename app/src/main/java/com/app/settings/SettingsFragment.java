@@ -49,12 +49,13 @@ public class SettingsFragment extends Fragment  {
         progressText.setText(String.valueOf(seekBar.getProgress()));
         userProgress = seekBar.getProgress();
 
-        setCurrentValues();
-
         // Current Default Language
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = view.findViewById(radioId);
         selectedLanguage = String.valueOf(radioButton.getText());
+
+        // Set New Values
+        setCurrentValues();
 
         arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +95,7 @@ public class SettingsFragment extends Fragment  {
             }
         });
         requireActivity().getOnBackPressedDispatcher().addCallback(requireActivity(), callback);
+
     }
 
 
@@ -115,20 +117,24 @@ public class SettingsFragment extends Fragment  {
         }
     };
     private void setCurrentValues(){
+        // GET SAVED VALUES
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("prefs", Context.MODE_PRIVATE);
         int pg = sharedPreferences.getInt("progress",45);
         String reSelectedLanguage = sharedPreferences.getString("language","한국인 (Korean)");
 
+        // UPDATE UI WITH NEW PROGRESS
         seekBar.setProgress(pg);
         progressText.setText(String.valueOf(pg));
 
-        //
-        int radioId = radioGroup.getCheckedRadioButtonId();
-        radioButton = view.findViewById(radioId);
-        String currentLanguage = String.valueOf(radioButton.getText());
-        if(currentLanguage.equals(reSelectedLanguage)){
+        // CHECK RADIO BUTTON BASED ON SELECTED LANGUAGE
+        if (reSelectedLanguage.equals("English (United States)")){
+            radioButton = view.findViewById(R.id.radioBtn1);
+            radioButton.setChecked(true);
+        } else if(reSelectedLanguage.equals("한국인 (Korean)")){
+            radioButton = view.findViewById(R.id.radioBtn2);
             radioButton.setChecked(true);
         }
+
 
     }
 }
