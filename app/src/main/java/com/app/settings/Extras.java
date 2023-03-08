@@ -3,8 +3,6 @@ package com.app.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import java.util.Collections;
-
 public class Extras {
 
     public static void saveValues(Context context , int progress , String language){

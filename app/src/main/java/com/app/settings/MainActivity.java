@@ -17,12 +17,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
-                startActivity(intent);
-            }
+        fab.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
+            startActivity(intent);
         });
 
         Bundle bundle = getIntent().getExtras();
@@ -31,7 +28,5 @@ public class MainActivity extends AppCompatActivity {
             String language = bundle.getString("language");
             Toast.makeText(MainActivity.this, "Latency is " + latency +  "\n"  + "Language is " + language,Toast.LENGTH_SHORT).show();
         }
-
-
     }
 }

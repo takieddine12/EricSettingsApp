@@ -12,14 +12,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import java.util.Objects;
 
 public class SettingsFragment extends Fragment  {
     RadioGroup radioGroup;
@@ -57,17 +53,14 @@ public class SettingsFragment extends Fragment  {
         // Set New Values
         setCurrentValues();
 
-        arrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(requireActivity(),MainActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("latency", userProgress);
-                bundle.putString("language",selectedLanguage);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                requireActivity().finish();
-            }
+        arrowBack.setOnClickListener(v -> {
+            Intent intent = new Intent(requireActivity(),MainActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("latency", userProgress);
+            bundle.putString("language",selectedLanguage);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            requireActivity().finish();
         });
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -86,13 +79,10 @@ public class SettingsFragment extends Fragment  {
 
             }
         });
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int radioId = group.getCheckedRadioButtonId();
-                radioButton = view.findViewById(radioId);
-                selectedLanguage = String.valueOf(radioButton.getText());
-            }
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            int radioId1 = group.getCheckedRadioButtonId();
+            radioButton = view.findViewById(radioId1);
+            selectedLanguage = String.valueOf(radioButton.getText());
         });
         requireActivity().getOnBackPressedDispatcher().addCallback(requireActivity(), callback);
 

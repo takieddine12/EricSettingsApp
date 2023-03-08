@@ -13,5 +13,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@drawable/ic_baseline_open_in_full_24"
-        app:backgroundTint="#3F51B5"/>
+        app:backgroundTint="#3F51B5"
+        android:contentDescription="@string/todo" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

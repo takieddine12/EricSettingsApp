@@ -11,4 +11,5 @@
     <string name="set_voice_recording_language">Set Voice Recording Language</string>
     <string name="set_audio_video_sync_delay">Set Audio-Video Sync Delay</string>
     <string name="_45">45</string>
+    <string name="todo">TODO</string>
 </resources>
