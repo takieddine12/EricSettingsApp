@@ -1,6 +1,8 @@
 package com.app.settings;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,8 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import java.util.Objects;
 
 public class SettingsFragment extends Fragment  {
     RadioGroup radioGroup;
@@ -45,6 +49,8 @@ public class SettingsFragment extends Fragment  {
         progressText.setText(String.valueOf(seekBar.getProgress()));
         userProgress = seekBar.getProgress();
 
+        setCurrentValues();
+
         // Current Default Language
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = view.findViewById(radioId);
@@ -54,8 +60,10 @@ public class SettingsFragment extends Fragment  {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(requireActivity(),MainActivity.class);
-                intent.putExtra("latency",userProgress);
-                intent.putExtra("language",selectedLanguage);
+                Bundle bundle = new Bundle();
+                bundle.putInt("latency", userProgress);
+                bundle.putString("language",selectedLanguage);
+                intent.putExtras(bundle);
                 startActivity(intent);
                 requireActivity().finish();
             }
@@ -95,13 +103,32 @@ public class SettingsFragment extends Fragment  {
         public void handleOnBackPressed() {
             // Handle the back button event
 
+            Extras.saveValues(requireContext(),userProgress,selectedLanguage);
             Intent intent = new Intent(requireActivity(),MainActivity.class);
-            intent.putExtra("latency",userProgress);
-            intent.putExtra("language",selectedLanguage);
+            Bundle bundle = new Bundle();
+            bundle.putInt("latency", userProgress);
+            bundle.putString("language",selectedLanguage);
+            intent.putExtras(bundle);
             startActivity(intent);
             requireActivity().finish();
 
         }
     };
+    private void setCurrentValues(){
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        int pg = sharedPreferences.getInt("progress",45);
+        String reSelectedLanguage = sharedPreferences.getString("language","한국인 (Korean)");
 
+        seekBar.setProgress(pg);
+        progressText.setText(String.valueOf(pg));
+
+        //
+        int radioId = radioGroup.getCheckedRadioButtonId();
+        radioButton = view.findViewById(radioId);
+        String currentLanguage = String.valueOf(radioButton.getText());
+        if(currentLanguage.equals(reSelectedLanguage)){
+            radioButton.setChecked(true);
+        }
+
+    }
 }

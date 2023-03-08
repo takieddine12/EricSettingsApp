@@ -25,10 +25,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = getIntent();
-        if(intent.getExtras() != null){
-            int latency = intent.getIntExtra("latency",0);
-            String language = intent.getStringExtra("language");
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null){
+            int latency = bundle.getInt("latency",0);
+            String language = bundle.getString("language");
             Toast.makeText(MainActivity.this, "Latency is " + latency +  "\n"  + "Language is " + language,Toast.LENGTH_SHORT).show();
         }
 
